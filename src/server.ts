@@ -1,25 +1,21 @@
-import app from "@/app";
-import { logger } from "@utils/logger";
-import { NODE_ENV, PORT } from "@config";
-import validateEnv from "@utils/validateEnv";
-validateEnv();
-// ROUTES
-// import connectDatabase from "./databases";
-import HomeRoute from "@routes/index.route";
+
+import express from 'express';
+import bodyParser from 'body-parser';
  
-const routes = [
-  {
-    path: "/",
-    func: HomeRoute,
-  },
-];
+import songRoutes from './routes/index.route';
+import connectDatabase from './databases';
 
-routes.forEach(({ path, func }) => {
-  app.use(path, func);
-});
+const app = express();
+app.use(bodyParser.json());
 
-// connectDatabase();
-app.listen(PORT, () => {
-  logger.info(`======= ENV: ${NODE_ENV} =======`);
-  logger.info(`🚀 App listening on the port http://localhost:${PORT}`);
+
+const port = process.env.PORT;
+app.use('/',songRoutes);
+// app.get('/', (req, res) => {
+//   res.send('Upload file');
+// });
+
+ connectDatabase()
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

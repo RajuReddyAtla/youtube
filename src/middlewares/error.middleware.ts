@@ -1,6 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import { HttpException } from '@exceptions/HttpException';
 import { logger } from '@utils/logger';
+import { uploadSong } from '@/controllers/index.controller';
+import multer from 'multer';
+
+
+
+
 
 const errorMiddleware = (error: HttpException, req: Request, res: Response, next: NextFunction) => {
   try {
@@ -15,3 +21,7 @@ const errorMiddleware = (error: HttpException, req: Request, res: Response, next
 };
 
 export default errorMiddleware;
+function use(arg0: (err: any, req: any, res: any, next: any) => void) {
+  throw new Error('Function not implemented.');
+}
+
