@@ -7,7 +7,8 @@ const songSchema = new mongoose.Schema({
   lastPlayed: Date,
 });
 
-songSchema.index({ title: 'text', artist: 'text' }); //poojitha code
+// songSchema.index({ title: 'text', artist: 'text' });
+  
 
 const Song=mongoose.model('Song', songSchema);
 export default Song
