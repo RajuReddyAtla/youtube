@@ -49,7 +49,6 @@ router.get('/getlatest', getLatestSongs)
 
 router.get("/playsong/:id", playSong);
 
-
 router.get("/recentlyplayed", getRecentlyPlayedSongs);
 
  

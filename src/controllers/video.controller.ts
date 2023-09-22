@@ -22,7 +22,7 @@ export const convertVideoToMP3 = async (req: Request, res: Response) => {
       .toFormat('mp3')
       .save(outputPath)
       .on('end', async () => {
-        // Save video info to MongoDB
+         
         const video = new Video({
           title: videoInfo.videoDetails.title,
           url: url,
@@ -42,5 +42,18 @@ export const convertVideoToMP3 = async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Conversion error:', error);
     res.status(500).json({ error: 'Conversion failed' });
+  }
+};
+
+export const getAllConvertedSongs = async (req: Request, res: Response) => {
+  try {
+    // Use Mongoose to find all videos with MP3 files
+    const convertedSongs = await Video.find({ mp3Path: { $exists: true } });
+
+    // Send the list of converted songs as a JSON response
+    res.status(200).json(convertedSongs);
+  } catch (error) {
+    console.error('Error retrieving converted songs:', error);
+    res.status(500).json({ error: 'Error retrieving converted songs' });
   }
 };
